@@ -15,6 +15,7 @@ namespace SmartHomeIntegrations.Server
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
                 });
     }
 }
