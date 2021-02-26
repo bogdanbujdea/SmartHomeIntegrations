@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,7 @@ namespace SmartHomeIntegrations.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            ShowConfig(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -29,7 +30,14 @@ namespace SmartHomeIntegrations.Server
 
             services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
         }
-
+        private static void ShowConfig(IConfiguration config)
+        {
+            foreach (var pair in config.GetChildren())
+            {
+                Console.WriteLine($"{pair.Path} - {pair.Value}");
+                ShowConfig(pair);
+            }
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
