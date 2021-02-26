@@ -12,7 +12,7 @@ namespace SmartHomeIntegrations.Server.Controllers
         {
             return Ok(new
             {
-                message = "Hello world"
+                message = "Hello world CI/CD"
             });
         }
     }
