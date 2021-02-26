@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace SmartHomeIntegrations.Server
@@ -15,6 +16,11 @@ namespace SmartHomeIntegrations.Server
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureAppConfiguration(builder =>
+                    {
+                        builder.AddJsonFile("appsettings.json");
+                        builder.AddEnvironmentVariables();
+                    });
                     webBuilder.UseKestrel(opts =>
                     {
                         opts.ListenAnyIP(5000);

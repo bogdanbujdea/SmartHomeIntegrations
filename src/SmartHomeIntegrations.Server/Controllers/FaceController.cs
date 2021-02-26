@@ -22,7 +22,8 @@ namespace SmartHomeIntegrations.Server.Controllers
             return Ok(new 
             {
                 message = "Hello world!",
-                hassUrl = _serverSettings.Value.HassURL
+                hassUrl = _serverSettings.Value.HassURL,
+                faceEndpoint = _serverSettings.Value.FaceEndpoint
             });
         }
     }
