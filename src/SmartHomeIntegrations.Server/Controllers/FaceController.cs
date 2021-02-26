@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using SmartHomeIntegrations.Server.Infrastructure;
 
 namespace SmartHomeIntegrations.Server.Controllers
 {
@@ -7,12 +9,20 @@ namespace SmartHomeIntegrations.Server.Controllers
     [ApiController]
     public class FaceController : ControllerBase
     {
+        private readonly IOptions<ServerSettings> _serverSettings;
+
+        public FaceController(IOptions<ServerSettings> serverSettings)
+        {
+            _serverSettings = serverSettings;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetOfficePersons()
         {
-            return Ok(new
+            return Ok(new 
             {
-                message = "Hello world CI/CD"
+                message = "Hello world!",
+                hassUrl = _serverSettings.Value.HassURL
             });
         }
     }

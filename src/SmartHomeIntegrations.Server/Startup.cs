@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SmartHomeIntegrations.Server.Infrastructure;
 
 namespace SmartHomeIntegrations.Server
 {
@@ -25,6 +26,8 @@ namespace SmartHomeIntegrations.Server
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartHomeIntegrations.Server", Version = "v1" });
             });
+
+            services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
