@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SmartHomeIntegrations.Server.Infrastructure;
+using SmartHomeIntegrations.Core.HomeAssistant;
+using SmartHomeIntegrations.Core.Infrastructure;
+using SmartHomeIntegrations.FaceRecognition;
 
 namespace SmartHomeIntegrations.Server
 {
@@ -21,7 +23,6 @@ namespace SmartHomeIntegrations.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            ShowConfig(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -29,15 +30,11 @@ namespace SmartHomeIntegrations.Server
             });
 
             services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
+
+            services.AddSingleton<IFaceDetector, FaceDetector>();
+            services.AddSingleton<ISmartHomeClient, SmartHomeClient>();
         }
-        private static void ShowConfig(IConfiguration config)
-        {
-            foreach (var pair in config.GetChildren())
-            {
-                Console.WriteLine($"{pair.Path} - {pair.Value}");
-                ShowConfig(pair);
-            }
-        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

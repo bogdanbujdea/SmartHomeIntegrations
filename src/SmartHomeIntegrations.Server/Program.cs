@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +19,7 @@ namespace SmartHomeIntegrations.Server
                     webBuilder.ConfigureAppConfiguration(builder =>
                     {
                         builder.AddJsonFile("appsettings.json");
+                        builder.AddUserSecrets<Program>();
                         builder.AddEnvironmentVariables();
                     });
                     webBuilder.UseKestrel(opts =>

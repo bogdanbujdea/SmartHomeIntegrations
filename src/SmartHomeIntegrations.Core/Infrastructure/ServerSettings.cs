@@ -1,4 +1,4 @@
-﻿namespace SmartHomeIntegrations.Server.Infrastructure
+﻿namespace SmartHomeIntegrations.Core.Infrastructure
 {
 
     public class ServerSettings
@@ -8,5 +8,8 @@
         public string FaceEndpoint { get; set; }
         public string HassURL { get; set; }
         public string HassApiKey { get; set; }
+        public string BogdanFaceId { get; set; }
+        public string FamilyGroupId { get; set; }
+        public string OfficeCameraSnapshot { get; set; }
     }
 }
