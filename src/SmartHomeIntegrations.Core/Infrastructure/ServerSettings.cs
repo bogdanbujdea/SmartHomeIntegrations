@@ -11,5 +11,6 @@
         public string BogdanFaceId { get; set; }
         public string FamilyGroupId { get; set; }
         public string OfficeCameraSnapshot { get; set; }
+        public string RescueTimeCookie { get; set; }
     }
 }

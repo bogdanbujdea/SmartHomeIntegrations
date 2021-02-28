@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartHomeIntegrations.Core.HomeAssistant;
 using SmartHomeIntegrations.Core.Infrastructure;
+using SmartHomeIntegrations.Core.Integrations;
 using SmartHomeIntegrations.FaceRecognition;
 
 namespace SmartHomeIntegrations.Server
@@ -30,9 +32,10 @@ namespace SmartHomeIntegrations.Server
             });
 
             services.Configure<ServerSettings>(Configuration.GetSection("ServerSettings"));
-
+            services.AddScoped(s => new HttpClient());
             services.AddSingleton<IFaceDetector, FaceDetector>();
             services.AddSingleton<ISmartHomeClient, SmartHomeClient>();
+            services.AddScoped<IProductivityService, ProductivityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

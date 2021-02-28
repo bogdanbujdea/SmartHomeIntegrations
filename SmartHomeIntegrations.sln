@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartHomeIntegrations.Server", "src\SmartHomeIntegrations.Server\SmartHomeIntegrations.Server.csproj", "{D4C6A8DA-463D-4A81-A820-F402A52BFB71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartHomeIntegrations.FaceRecognition", "src\SmartHomeIntegrations.FaceRecognition\SmartHomeIntegrations.FaceRecognition.csproj", "{B5D0EAC0-C5BE-49B1-BF97-C6762FE7746E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartHomeIntegrations.Core", "src\SmartHomeIntegrations.Core\SmartHomeIntegrations.Core.csproj", "{5CDBEE2E-6B37-4DF1-B631-80122D19831A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartHomeIntegrations.UnitTests", "tests\SmartHomeIntegrations.UnitTests\SmartHomeIntegrations.UnitTests.csproj", "{F1E3AD6E-3F9F-42FE-822C-2A90199AEC23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B5251A9C-6CBC-4A68-B3BE-DA4958188512}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{430C8A87-D577-41C0-B0F0-2C50BEF11D43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4C6A8DA-463D-4A81-A820-F402A52BFB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C6A8DA-463D-4A81-A820-F402A52BFB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C6A8DA-463D-4A81-A820-F402A52BFB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C6A8DA-463D-4A81-A820-F402A52BFB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5D0EAC0-C5BE-49B1-BF97-C6762FE7746E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D0EAC0-C5BE-49B1-BF97-C6762FE7746E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D0EAC0-C5BE-49B1-BF97-C6762FE7746E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D0EAC0-C5BE-49B1-BF97-C6762FE7746E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDBEE2E-6B37-4DF1-B631-80122D19831A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CDBEE2E-6B37-4DF1-B631-80122D19831A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CDBEE2E-6B37-4DF1-B631-80122D19831A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CDBEE2E-6B37-4DF1-B631-80122D19831A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E3AD6E-3F9F-42FE-822C-2A90199AEC23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E3AD6E-3F9F-42FE-822C-2A90199AEC23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E3AD6E-3F9F-42FE-822C-2A90199AEC23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E3AD6E-3F9F-42FE-822C-2A90199AEC23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D4C6A8DA-463D-4A81-A820-F402A52BFB71} = {B5251A9C-6CBC-4A68-B3BE-DA4958188512}
+		{B5D0EAC0-C5BE-49B1-BF97-C6762FE7746E} = {B5251A9C-6CBC-4A68-B3BE-DA4958188512}
+		{5CDBEE2E-6B37-4DF1-B631-80122D19831A} = {B5251A9C-6CBC-4A68-B3BE-DA4958188512}
+		{F1E3AD6E-3F9F-42FE-822C-2A90199AEC23} = {430C8A87-D577-41C0-B0F0-2C50BEF11D43}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {619A99CD-70A5-4881-A21D-9B1D1E77AAA9}
+	EndGlobalSection
+EndGlobal
