@@ -15,6 +15,7 @@ namespace SmartHomeIntegrations.FaceRecognition
     {
         private readonly IOptions<ServerSettings> _serverSettings;
         private static IFaceClient _client;
+        
         private static Guid _bogdanId;
 
         public FaceDetector(IOptions<ServerSettings> serverSettings)
@@ -44,8 +45,16 @@ namespace SmartHomeIntegrations.FaceRecognition
         private async Task<List<DetectedFace>> DetectFaceRecognize(IFaceClient faceClient, string url, string recognitionModel)
         {
             var imageStream = await new HttpClient().GetStreamAsync(url);
-            IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithStreamAsync(imageStream, recognitionModel: recognitionModel, detectionModel: DetectionModel.Detection02);
+            IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithStreamAsync(imageStream, recognitionModel: recognitionModel, detectionModel: DetectionModel.Detection01, returnFaceAttributes: new List<FaceAttributeType?>
+            {
+                FaceAttributeType.Emotion,
+                FaceAttributeType.Smile
+            });
             Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(url)}`");
+            foreach (var detectedFace in detectedFaces)
+            {
+                Console.WriteLine(detectedFace.FaceAttributes.Emotion.Anger);
+            }
             return detectedFaces.ToList();
         }
 

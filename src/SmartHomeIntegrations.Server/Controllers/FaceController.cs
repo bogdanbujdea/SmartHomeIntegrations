@@ -29,7 +29,6 @@ namespace SmartHomeIntegrations.Server.Controllers
         {
             try
             {
-
                 var faceRecognitionStatus = await _faceDetector.RecognizeFaces(_serverSettings.Value.OfficeCameraSnapshot);
                 if (faceRecognitionStatus.IsMe)
                 {

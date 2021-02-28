@@ -2,10 +2,12 @@ using System;
 using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SmartHomeIntegrations.Core.Entities;
 using SmartHomeIntegrations.Core.HomeAssistant;
 using SmartHomeIntegrations.Core.Infrastructure;
 using SmartHomeIntegrations.Core.Integrations;
@@ -36,6 +38,11 @@ namespace SmartHomeIntegrations.Server
             services.AddSingleton<IFaceDetector, FaceDetector>();
             services.AddSingleton<ISmartHomeClient, SmartHomeClient>();
             services.AddScoped<IProductivityService, ProductivityService>();
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"]));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
