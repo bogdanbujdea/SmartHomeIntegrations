@@ -21,7 +21,7 @@ namespace SmartHomeIntegrations.Server.Controllers
             _smartHomeClient = smartHomeClient;
         }
 
-        [HttpPost("/update-standing-up-sensors")]
+        [HttpPost("update-standing-up-sensors")]
         public async Task<IActionResult> GetStandingUpInfo()
         {
             try
@@ -40,7 +40,7 @@ namespace SmartHomeIntegrations.Server.Controllers
                 {
                     await _smartHomeClient.SetVar($"var.standing_up_{i}_days_ago", days[i].CurrentState);
                 }
-                return Ok();
+                return Ok(days);
             }
             catch (Exception e)
             {
