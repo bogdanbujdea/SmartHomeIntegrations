@@ -15,7 +15,7 @@ namespace SmartHomeIntegrations.FaceRecognition
     {
         private readonly IOptions<ServerSettings> _serverSettings;
         private static IFaceClient _client;
-        
+
         private static Guid _bogdanId;
 
         public FaceDetector(IOptions<ServerSettings> serverSettings)
@@ -42,19 +42,30 @@ namespace SmartHomeIntegrations.FaceRecognition
             return new FaceClient(new ApiKeyServiceClientCredentials(key)) { Endpoint = endpoint };
         }
 
-        private async Task<List<DetectedFace>> DetectFaceRecognize(IFaceClient faceClient, string url, string recognitionModel)
+        private async Task<List<DetectedFace>> DetectFaces(IFaceClient faceClient, string url, string recognitionModel, int retryCount = 10)
         {
-            var imageStream = await new HttpClient().GetStreamAsync(url);
-            IList<DetectedFace> detectedFaces = await faceClient.Face.DetectWithStreamAsync(imageStream, recognitionModel: recognitionModel, detectionModel: DetectionModel.Detection01, returnFaceAttributes: new List<FaceAttributeType?>
+            IList<DetectedFace> detectedFaces;
+            do
             {
-                FaceAttributeType.Emotion,
-                FaceAttributeType.Smile
-            });
-            Console.WriteLine($"{detectedFaces.Count} face(s) detected from image `{Path.GetFileName(url)}`");
-            foreach (var detectedFace in detectedFaces)
-            {
-                Console.WriteLine(detectedFace.FaceAttributes.Emotion.Anger);
-            }
+                try
+                {
+                    Console.WriteLine($"Request {retryCount--}");
+                    
+                    var imageStream = await new HttpClient().GetStreamAsync(url);
+                    detectedFaces = await faceClient.Face.DetectWithStreamAsync(imageStream, recognitionModel: recognitionModel, detectionModel: DetectionModel.Detection01, returnFaceAttributes: new List<FaceAttributeType?>
+                    {
+                        FaceAttributeType.Emotion,
+                        FaceAttributeType.Smile
+                    });
+                    await Task.Delay(500);
+                }
+                catch (Exception) // ignore this
+                {
+                    detectedFaces = new List<DetectedFace>();
+                }
+            } while (retryCount > 0 && detectedFaces.Count == 0);
+
+            Console.WriteLine($"Found {detectedFaces.Count} faces");
             return detectedFaces.ToList();
         }
 
@@ -82,7 +93,7 @@ namespace SmartHomeIntegrations.FaceRecognition
         public async Task<FaceRecognitionStatus> RecognizeFaces(string imagePath)
         {
             List<Guid?> sourceFaceIds = new List<Guid?>();
-            List<DetectedFace> detectedFaces = await DetectFaceRecognize(_client, imagePath, RecognitionModel.Recognition03);
+            List<DetectedFace> detectedFaces = await DetectFaces(_client, imagePath, RecognitionModel.Recognition03);
 
             if (detectedFaces.Count <= 0) return new FaceRecognitionStatus();
             foreach (var detectedFace in detectedFaces)
@@ -105,7 +116,6 @@ namespace SmartHomeIntegrations.FaceRecognition
                 DetectedPersons = detectedFaces.Count,
                 IdentifiedPersons = identifyResults.Count(r => r.Candidates.Any())
             };
-
         }
     }
 }
