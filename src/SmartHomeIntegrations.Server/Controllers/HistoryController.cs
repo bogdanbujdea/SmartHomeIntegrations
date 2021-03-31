@@ -33,7 +33,7 @@ namespace SmartHomeIntegrations.Server.Controllers
                     .OrderByDescending(s => s.LastChanged)
                     .ToListAsync();
                 var days = standingUp
-                    .GroupBy(s => s.LastChanged.AddHours(2).Day)
+                    .GroupBy(s => s.LastChanged.AddHours(3).Day)
                     .Select(g => g.OrderByDescending(s => s.LastChanged).FirstOrDefault())
                     .ToList();
                 for (int i = 1; i <= 6; i++)
