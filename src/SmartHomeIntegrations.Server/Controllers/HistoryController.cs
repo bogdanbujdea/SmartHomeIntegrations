@@ -36,8 +36,12 @@ namespace SmartHomeIntegrations.Server.Controllers
                     .GroupBy(s => s.LastChanged.AddHours(3).Day)
                     .Select(g => g.OrderByDescending(s => s.LastChanged).FirstOrDefault())
                     .ToList();
-                for (int i = 1; i <= 6; i++)
+
+                foreach (var day in days)
                 {
+                    var i = DateTime.UtcNow.Subtract(day.LastUpdated).Days;
+                    if (i == 0)
+                        continue;
                     await _smartHomeClient.SetVar($"var.standing_up_{i}_days_ago", days[i].CurrentState);
                 }
                 return Ok(days);
